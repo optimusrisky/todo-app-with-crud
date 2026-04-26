@@ -4,8 +4,8 @@
  */
 export const Header = () => {
   return (
-    <header className="w-full h-10 bg-foreground">
-      <h1 className="dark:text-white text-black">Todo App</h1>
+    <header className="w-full px-6 py-4 bg-background border-2 flex items-center">
+      <p className="font-bold text-xl">Dev Tasker</p>
     </header>
   );
 };

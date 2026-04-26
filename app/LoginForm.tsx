@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import type { SubmitEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
@@ -10,14 +11,15 @@ import { Paths } from "@/consts/consts";
 export const LoginForm = () => {
   const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = (e: SubmitEvent) => {
+    e.preventDefault();
     router.push(Paths.DASH_BOARD);
   };
 
   return (
     <Card className="flex flex-col gap-8 p-8 border-2 rounded-xl min-w-sm">
       <CardTitle className="font-bold self-center">ログイン</CardTitle>
-      <form>
+      <form onSubmit={handleLogin}>
         <FieldSet>
           <FieldGroup className="gap-4">
             <Field>
@@ -41,7 +43,7 @@ export const LoginForm = () => {
                 placeholder="パスワードを入力してください"
               />
             </Field>
-            <Button onClick={handleLogin} className="p-2 min-h-fit">
+            <Button type="submit" className="p-2 min-h-fit">
               ログイン
             </Button>
           </FieldGroup>
