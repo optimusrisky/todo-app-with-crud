@@ -27,7 +27,7 @@ export const PriorityTypeBadge = ({ priorityType, children }: Props) => {
 
   return (
     <Badge
-      className={`${getBgColor()} h-fit py-1 px-2 rounded-sm text-white font-bold`}
+      className={`${getBgColor()} h-fit py-1 px-2 w-20 rounded-sm text-white font-bold`}
     >
       {children}
     </Badge>
