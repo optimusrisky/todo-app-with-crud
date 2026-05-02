@@ -8,7 +8,7 @@ export default function AuthLayout({
   return (
     <div>
       <Header />
-      {children}
+      <div className="p-8">{children}</div>
     </div>
   );
 }
