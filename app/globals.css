@@ -37,6 +37,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --priority-low: oklch(0.66 0.11 157);
+  --priority-medium: oklch(0.66 0.15 53);
+  --priority-high: oklch(0.55 0.17 13);
 }
 
 @theme inline {
@@ -82,6 +85,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-priority-low: var(--priority-low);
+  --color-priority-medium: var(--priority-medium);
+  --color-priority-high: var(--priority-high);
 }
 
 .dark {
