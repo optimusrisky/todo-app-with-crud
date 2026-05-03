@@ -29,7 +29,7 @@ export const PriorityTypeBadge = ({ priorityType, children }: Props) => {
     <Badge
       className={`${getBgColor()} h-fit py-1 px-2 w-20 rounded-sm text-white font-bold`}
     >
-      {children}
+      優先度：{children}
     </Badge>
   );
 };

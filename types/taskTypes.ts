@@ -7,7 +7,7 @@ export interface Task {
   /** 優先度タイプ */
   priorityType?: "low" | "medium" | "high";
   /** 優先度名 */
-  priorityTypeName?: "LOW" | "MEDIUM" | "HIGH";
+  priorityTypeName?: "低" | "中" | "高";
   /** 期限 */
   dueDate?: Date;
   /** 完了フラグ */
