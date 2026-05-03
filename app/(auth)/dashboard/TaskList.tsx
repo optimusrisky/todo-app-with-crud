@@ -34,7 +34,7 @@ export const TaskList = ({ tasks }: Props) => {
                 {task.priorityTypeName}
               </PriorityTypeBadge>
             )}
-            <Button variant="ghost" className="hover:cursor-pointer">
+            <Button variant="ghost" className="cursor-pointer">
               <BsThreeDots />
             </Button>
           </div>
