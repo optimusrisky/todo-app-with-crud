@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TbPlus } from "react-icons/tb";
-import { Button } from "@/components/ui/button";
+import { TaskAddButtonWithModal } from "@/components/modal/TaskAddButtonWithModal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import type { Task } from "@/types/taskTypes";
@@ -48,10 +47,7 @@ export const TaskListContainer = ({ tasks }: Props) => {
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <Button className="px-4 py-2 h-fit cursor-pointer">
-          <TbPlus />
-          Add
-        </Button>
+        <TaskAddButtonWithModal />
       </div>
       <TaskList tasks={tasks} />
     </div>
