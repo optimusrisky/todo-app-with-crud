@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TbPlus } from "react-icons/tb";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogClose,
@@ -31,8 +32,10 @@ export const TaskAddButtonWithModal = () => {
   const router = useRouter();
   const handleSubmit = () => {
     setOpen(false);
+    toast.success("タスクを追加しました");
     router.refresh();
   };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
