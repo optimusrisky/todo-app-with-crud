@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import type { Task } from "@/types/taskTypes";
 import { TaskListContainer } from "./TaskListContainer";
 
@@ -20,5 +21,10 @@ export default function Page() {
       updatedAt: new Date("2026/04/27"),
     },
   ];
-  return <TaskListContainer tasks={tasks} />;
+  return (
+    <>
+      <Breadcrumb items={[{ title: "ダッシュボード" }]} />
+      <TaskListContainer tasks={tasks} />
+    </>
+  );
 }
