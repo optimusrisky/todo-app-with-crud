@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { TaskAddButtonWithModal } from "@/components/modal/TaskAddButtonWithModal";
+import { TbPlus } from "react-icons/tb";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Paths } from "@/consts/consts";
 import { cn } from "@/lib/utils";
 import type { Task } from "@/types/taskTypes";
 import { TaskList } from "./TaskList";
@@ -47,7 +50,12 @@ export const TaskListContainer = ({ tasks }: Props) => {
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <TaskAddButtonWithModal />
+        <Button asChild className="px-4 py-2 h-fit">
+          <Link href={Paths.TASK_CREATE}>
+            <TbPlus />
+            Add
+          </Link>
+        </Button>
       </div>
       <TaskList tasks={tasks} />
     </div>
