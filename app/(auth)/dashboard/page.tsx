@@ -22,9 +22,10 @@ export default function Page() {
     },
   ];
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Breadcrumb items={[{ title: "ダッシュボード" }]} />
+      <h1 className="text-2xl font-bold">ダッシュボード</h1>
       <TaskListContainer tasks={tasks} />
-    </>
+    </div>
   );
 }
