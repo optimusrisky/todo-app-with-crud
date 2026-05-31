@@ -9,7 +9,18 @@ const dummyTaskDetail: TaskDetailType = {
   isCompleted: false,
   createdAt: new Date("2026/04/27"),
   updatedAt: new Date("2026/04/27"),
-  description: "毎朝欠かさず早起きする",
+  description: `
+
+# タイトル
+
+これは **太字** です。
+
+- item1
+
+- item2
+
+`,
+  createdBy: "ABC 太郎",
 };
 
 export default function Page() {

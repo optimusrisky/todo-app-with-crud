@@ -1,5 +1,8 @@
 import dayjs from "dayjs";
+import Markdown from "react-markdown";
 import { PRIORITY_LABEL, STATUS_LABEL } from "@/consts/task";
+import { markdownComponents } from "@/lib/markdownComponents";
+import { markdownRemarkPlugins } from "@/lib/markdownPlugins";
 import type { TaskDetail as TaskDetailType } from "@/types/taskTypes";
 
 interface Props {
@@ -12,7 +15,12 @@ export const TaskDetail = ({ task }: Props) => {
       <div className="border rounded-lg p-4 flex flex-col gap-4 min-h-50 w-[70%]">
         <div className="flex flex-col gap-2">
           <div className="min-w-[150px] font-bold">説明</div>
-          <div className="whitespace-break-spaces">{task.description}</div>
+          <Markdown
+            components={markdownComponents}
+            remarkPlugins={markdownRemarkPlugins}
+          >
+            {task.description}
+          </Markdown>
         </div>
       </div>
       <div className="border rounded-lg p-4 flex flex-col gap-2 w-[30%]">
@@ -29,6 +37,10 @@ export const TaskDetail = ({ task }: Props) => {
             <div>
               {task.priorityType ? PRIORITY_LABEL[task.priorityType] : "未設定"}
             </div>
+          </div>
+          <div className="flex items-center">
+            <div className="min-w-[120px]">作成者</div>
+            <div>{task.createdBy}</div>
           </div>
           <div className="flex items-center">
             <div className="min-w-[120px]">期日</div>

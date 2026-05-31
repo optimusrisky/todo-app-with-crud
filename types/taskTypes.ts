@@ -22,4 +22,6 @@ export interface TaskDetail extends Task {
   description: string;
   /** ステータス */
   statusType?: "progress" | "completed";
+  /** 作成者 */
+  createdBy: string;
 }
