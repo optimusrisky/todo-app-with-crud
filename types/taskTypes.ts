@@ -6,8 +6,6 @@ export interface Task {
   name: string;
   /** 優先度タイプ */
   priorityType?: "low" | "medium" | "high";
-  /** 優先度名 */
-  priorityTypeName?: "低" | "中" | "高";
   /** 期限 */
   dueDate?: Date;
   /** 完了フラグ */
@@ -16,4 +14,14 @@ export interface Task {
   createdAt: Date;
   /** 編集日 */
   updatedAt: Date;
+}
+
+/** タスク詳細 */
+export interface TaskDetail extends Task {
+  /** タスク説明 */
+  description: string;
+  /** ステータス */
+  statusType?: "progress" | "completed";
+  /** 作成者 */
+  createdBy: string;
 }

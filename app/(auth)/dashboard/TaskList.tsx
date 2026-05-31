@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { PriorityTypeBadge } from "@/components/task/PriorityTypeBadge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Paths } from "@/consts/consts";
 import type { Task } from "@/types/taskTypes";
 
 interface Props {
@@ -29,13 +31,13 @@ export const TaskList = ({ tasks }: Props) => {
             <FieldLabel htmlFor={task.id.toString()}>{task.name}</FieldLabel>
           </div>
           <div className="flex items-center gap-4">
-            {task.priorityType && task.priorityTypeName && (
-              <PriorityTypeBadge priorityType={task.priorityType}>
-                {task.priorityTypeName}
-              </PriorityTypeBadge>
+            {task.priorityType && (
+              <PriorityTypeBadge priorityType={task.priorityType} />
             )}
             <Button variant="ghost" className="cursor-pointer">
-              <BsThreeDots />
+              <Link href={Paths.TASK_DETAIL.replace(":id", task.id.toString())}>
+                <BsThreeDots />
+              </Link>
             </Button>
           </div>
         </Field>

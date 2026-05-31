@@ -1,8 +1,10 @@
+import React from "react";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   Breadcrumb as BreadcrumbPrimitive,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 interface Props {
@@ -23,11 +25,14 @@ export const Breadcrumb = ({ items }: Props) => {
     <BreadcrumbPrimitive className="py-2">
       <BreadcrumbList>
         {items.map((item) => (
-          <BreadcrumbItem key={item.title}>
-            <BreadcrumbLink href={item.href ? item.href : undefined}>
-              {item.title}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
+          <React.Fragment key={item.title}>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={item.href ? item.href : undefined}>
+                {item.title}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {item.href && <BreadcrumbSeparator />}
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </BreadcrumbPrimitive>
