@@ -43,7 +43,7 @@ export const CreateTaskForm = () => {
       <FieldSet className="flex flex-col gap-4 border-0 p-0">
         <div className="flex gap-4 w-full">
           <div className="border rounded-lg p-4 flex flex-col gap-4 min-h-50 w-[70%] flex-1">
-            <FieldGroup className="gap-4 flex flex-col flex-1 min-h-0">
+            <FieldGroup className="gap-4 flex flex-col flex-1">
               <Field>
                 <FieldLabel htmlFor="name" className="font-bold">
                   タスク名
@@ -56,29 +56,29 @@ export const CreateTaskForm = () => {
                   />
                 </FieldContent>
               </Field>
-              <Field className="flex-1 min-h-0">
+              <Field className="h-full">
                 <FieldLabel htmlFor="description" className="font-bold">
                   説明
                 </FieldLabel>
-                <FieldContent className="flex-1 min-h-0">
+                <FieldContent>
                   <Textarea
                     id="description"
                     name="description"
                     placeholder="説明を入力してください"
-                    className="field-sizing-fixed flex-1 min-h-0 h-full resize-none"
+                    className="field-sizing-fixed flex-1 h-full resize-none"
                   />
                 </FieldContent>
               </Field>
             </FieldGroup>
           </div>
-          <div className="border rounded-lg p-4 flex flex-col gap-2 w-[30%]">
+          <div className="border rounded-lg p-4 flex flex-col gap-4 w-[30%]">
             <h3 className="text-md font-bold">タスク情報</h3>
-            <FieldGroup className="gap-2">
+            <FieldGroup className="gap-4">
               <Field orientation="horizontal" className="items-center gap-2">
                 <FieldLabel htmlFor="statusType" className="max-w-[120px]">
                   ステータス
                 </FieldLabel>
-                <FieldContent className="min-w-0 flex-1">
+                <FieldContent>
                   <NativeSelect
                     id="statusType"
                     name="statusType"
@@ -97,7 +97,7 @@ export const CreateTaskForm = () => {
                 <FieldLabel htmlFor="priorityType" className="max-w-[120px]">
                   優先度
                 </FieldLabel>
-                <FieldContent className="min-w-0 flex-1">
+                <FieldContent>
                   <NativeSelect
                     id="priorityType"
                     name="priorityType"
@@ -116,7 +116,7 @@ export const CreateTaskForm = () => {
                 <FieldLabel htmlFor="createdBy" className="max-w-[120px]">
                   作成者
                 </FieldLabel>
-                <FieldContent className="min-w-0 flex-1">
+                <FieldContent>
                   <Input
                     id="createdBy"
                     name="createdBy"
@@ -129,7 +129,7 @@ export const CreateTaskForm = () => {
                 <FieldLabel htmlFor="dueDate" className="max-w-[120px]">
                   期日
                 </FieldLabel>
-                <FieldContent className="min-w-0 flex-1">
+                <FieldContent>
                   <DatePickerButton
                     onSelect={handleSelectDate}
                     selectedDate={date}
