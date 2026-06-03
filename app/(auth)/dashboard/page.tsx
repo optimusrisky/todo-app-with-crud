@@ -15,7 +15,6 @@ export default function Page() {
       id: 2,
       name: "掃除する",
       priorityType: "low",
-      priorityTypeName: "低",
       isCompleted: false,
       createdAt: new Date("2026/04/27"),
       updatedAt: new Date("2026/04/27"),
