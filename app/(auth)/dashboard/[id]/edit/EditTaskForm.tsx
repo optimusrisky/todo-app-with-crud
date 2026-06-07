@@ -21,9 +21,19 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Paths } from "@/consts/consts";
 import { PRIORITY_LABEL, STATUS_LABEL } from "@/consts/task";
+import type { TaskDetail } from "@/types/taskTypes";
 
-export const CreateTaskForm = () => {
-  const [date, setDate] = useState<Date | undefined>();
+interface Props {
+  task: TaskDetail;
+}
+
+/**
+ * タスク編集フォーム
+ * @param task タスク
+ * @returns タスク編集フォーム
+ */
+export const EditTaskForm = ({ task }: Props) => {
+  const [date, setDate] = useState<Date | undefined>(task.dueDate);
   const router = useRouter();
 
   /** 日付選択処理 */
@@ -31,10 +41,10 @@ export const CreateTaskForm = () => {
     setDate(selectedDate);
   };
 
-  /** タスク追加 */
+  /** タスク更新 */
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
-    toast.success("タスクを追加しました");
+    toast.success("タスクを更新しました");
     router.push(Paths.DASH_BOARD);
   };
 
@@ -53,6 +63,7 @@ export const CreateTaskForm = () => {
                     id="name"
                     name="name"
                     placeholder="タスク名を入力してください"
+                    defaultValue={task.name}
                   />
                 </FieldContent>
               </Field>
@@ -66,6 +77,7 @@ export const CreateTaskForm = () => {
                     name="description"
                     placeholder="説明を入力してください"
                     className="field-sizing-fixed flex-1 h-full resize-none"
+                    defaultValue={task.description}
                   />
                 </FieldContent>
               </Field>
@@ -83,10 +95,11 @@ export const CreateTaskForm = () => {
                     id="statusType"
                     name="statusType"
                     className="w-full"
+                    defaultValue={task.statusType}
                   >
                     <NativeSelectOption value="">未設定</NativeSelectOption>
                     {Object.entries(STATUS_LABEL).map(([value, label]) => (
-                      <NativeSelectOption key={value} value={value}>
+                      <NativeSelectOption key={value}>
                         {label}
                       </NativeSelectOption>
                     ))}
@@ -102,14 +115,23 @@ export const CreateTaskForm = () => {
                     id="priorityType"
                     name="priorityType"
                     className="w-full"
+                    defaultValue={task.priorityType}
                   >
                     <NativeSelectOption value="">未設定</NativeSelectOption>
                     {Object.entries(PRIORITY_LABEL).map(([value, label]) => (
-                      <NativeSelectOption key={value} value={value}>
+                      <NativeSelectOption key={value}>
                         {label}
                       </NativeSelectOption>
                     ))}
                   </NativeSelect>
+                </FieldContent>
+              </Field>
+              <Field orientation="horizontal" className="items-center gap-2">
+                <FieldLabel htmlFor="createdBy" className="max-w-[120px]">
+                  作成者
+                </FieldLabel>
+                <FieldContent>
+                  <div>{task.createdBy}</div>
                 </FieldContent>
               </Field>
               <Field orientation="horizontal" className="items-center gap-2">
@@ -134,10 +156,12 @@ export const CreateTaskForm = () => {
           type="button"
           className="w-50 py-2 h-fit"
         >
-          <Link href={Paths.DASH_BOARD}>一覧に戻る</Link>
+          <Link href={Paths.TASK_DETAIL.replace(":id", task.id.toString())}>
+            詳細に戻る
+          </Link>
         </Button>
         <Button type="submit" className="w-50 py-2 h-fit">
-          作成
+          更新
         </Button>
       </div>
     </form>
