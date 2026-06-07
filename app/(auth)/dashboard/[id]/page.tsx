@@ -1,4 +1,7 @@
+import Link from "next/link";
+import { BsPencil } from "react-icons/bs";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Paths } from "@/consts/consts";
 import type { TaskDetail as TaskDetailType } from "@/types/taskTypes";
 import { TaskDetail } from "./TaskDetail";
@@ -31,10 +34,20 @@ export default function Page() {
       <Breadcrumb
         items={[
           { title: "ダッシュボード", href: Paths.DASH_BOARD },
-          { title: "タスク詳細" },
+          {
+            title: taskDetail.name,
+          },
         ]}
       />
-      <h1 className="text-2xl font-bold">{taskDetail.name}</h1>
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold">{taskDetail.name}</h1>
+        <Button asChild className="px-4 py-2 h-fit">
+          <Link href={Paths.TASK_EDIT.replace(":id", taskDetail.id.toString())}>
+            <BsPencil />
+            編集
+          </Link>
+        </Button>
+      </div>
       <TaskDetail task={dummyTaskDetail} />
     </div>
   );
