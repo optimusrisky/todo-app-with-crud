@@ -113,19 +113,6 @@ export const CreateTaskForm = () => {
                 </FieldContent>
               </Field>
               <Field orientation="horizontal" className="items-center gap-2">
-                <FieldLabel htmlFor="createdBy" className="max-w-[120px]">
-                  作成者
-                </FieldLabel>
-                <FieldContent>
-                  <Input
-                    id="createdBy"
-                    name="createdBy"
-                    placeholder="作成者を入力してください"
-                    className="w-full"
-                  />
-                </FieldContent>
-              </Field>
-              <Field orientation="horizontal" className="items-center gap-2">
                 <FieldLabel htmlFor="dueDate" className="max-w-[120px]">
                   期日
                 </FieldLabel>
