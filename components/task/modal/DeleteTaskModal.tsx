@@ -20,12 +20,20 @@ interface Props {
   };
   opened: boolean;
   onOpenChange: (open: boolean) => void;
+  onDelete: () => void;
 }
 
-export const DeleteTaskModal = ({ task, opened, onOpenChange }: Props) => {
+export const DeleteTaskModal = ({
+  task,
+  opened,
+  onOpenChange,
+  onDelete,
+}: Props) => {
   const handleDelete = () => {
     console.log(`taskId: ${task.id}`);
     toast.success("タスクを削除しました");
+    onDelete();
+    onOpenChange(false);
   };
 
   return (
