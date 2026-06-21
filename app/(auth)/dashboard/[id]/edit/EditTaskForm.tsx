@@ -1,14 +1,16 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { DatePickerButton } from "@/components/DatePickerButton";
 import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldContent,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -21,51 +23,58 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Paths } from "@/consts/consts";
 import { PRIORITY_LABEL, STATUS_LABEL } from "@/consts/task";
+import { type TaskInput, taskSchema } from "@/schemas/taskSchema";
 import type { TaskDetail } from "@/types/taskTypes";
 
 interface Props {
   task: TaskDetail;
 }
 
-/**
- * タスク編集フォーム
- * @param task タスク
- * @returns タスク編集フォーム
- */
 export const EditTaskForm = ({ task }: Props) => {
-  const [date, setDate] = useState<Date | undefined>(task.dueDate);
   const router = useRouter();
 
-  /** 日付選択処理 */
-  const handleSelectDate = (selectedDate: Date | undefined) => {
-    setDate(selectedDate);
-  };
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TaskInput>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      name: task.name,
+      description: task.description,
+      statusType: task.statusType ?? "",
+      priorityType: task.priorityType ?? "",
+      dueDate: task.dueDate,
+    },
+  });
 
   /** タスク更新 */
-  const handleSubmit = (e: React.SubmitEvent) => {
-    e.preventDefault();
+  const handleUpdate = (input: TaskInput) => {
+    console.log(input);
     toast.success("タスクを更新しました");
     router.push(Paths.DASH_BOARD);
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit(handleUpdate)} className="flex flex-col gap-4">
       <FieldSet className="flex flex-col gap-4 border-0 p-0">
         <div className="flex gap-4 w-full">
           <div className="border rounded-lg p-4 flex flex-col gap-4 min-h-50 w-[70%] flex-1">
             <FieldGroup className="gap-4 flex flex-col flex-1">
-              <Field>
+              <Field data-invalid={!!errors.name}>
                 <FieldLabel htmlFor="name" className="font-bold">
                   タスク名
                 </FieldLabel>
                 <FieldContent>
                   <Input
                     id="name"
-                    name="name"
                     placeholder="タスク名を入力してください"
-                    defaultValue={task.name}
+                    aria-invalid={!!errors.name}
+                    {...register("name")}
                   />
                 </FieldContent>
+                <FieldError errors={[errors.name]} />
               </Field>
               <Field className="h-full">
                 <FieldLabel htmlFor="description" className="font-bold">
@@ -74,10 +83,9 @@ export const EditTaskForm = ({ task }: Props) => {
                 <FieldContent>
                   <Textarea
                     id="description"
-                    name="description"
                     placeholder="説明を入力してください"
                     className="field-sizing-fixed flex-1 h-full resize-none"
-                    defaultValue={task.description}
+                    {...register("description")}
                   />
                 </FieldContent>
               </Field>
@@ -93,13 +101,12 @@ export const EditTaskForm = ({ task }: Props) => {
                 <FieldContent>
                   <NativeSelect
                     id="statusType"
-                    name="statusType"
                     className="w-full"
-                    defaultValue={task.statusType}
+                    {...register("statusType")}
                   >
                     <NativeSelectOption value="">未設定</NativeSelectOption>
                     {Object.entries(STATUS_LABEL).map(([value, label]) => (
-                      <NativeSelectOption key={value}>
+                      <NativeSelectOption key={value} value={value}>
                         {label}
                       </NativeSelectOption>
                     ))}
@@ -113,13 +120,12 @@ export const EditTaskForm = ({ task }: Props) => {
                 <FieldContent>
                   <NativeSelect
                     id="priorityType"
-                    name="priorityType"
                     className="w-full"
-                    defaultValue={task.priorityType}
+                    {...register("priorityType")}
                   >
                     <NativeSelectOption value="">未設定</NativeSelectOption>
                     {Object.entries(PRIORITY_LABEL).map(([value, label]) => (
-                      <NativeSelectOption key={value}>
+                      <NativeSelectOption key={value} value={value}>
                         {label}
                       </NativeSelectOption>
                     ))}
@@ -139,9 +145,15 @@ export const EditTaskForm = ({ task }: Props) => {
                   期日
                 </FieldLabel>
                 <FieldContent>
-                  <DatePickerButton
-                    onSelect={handleSelectDate}
-                    selectedDate={date}
+                  <Controller
+                    name="dueDate"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePickerButton
+                        onSelect={field.onChange}
+                        selectedDate={field.value}
+                      />
+                    )}
                   />
                 </FieldContent>
               </Field>
