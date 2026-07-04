@@ -1,11 +1,12 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { DatePickerButton } from "@/components/DatePickerButton";
+import { MarkdownEditor } from "@/components/MarkdownEditor";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -20,7 +21,6 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
-import { Textarea } from "@/components/ui/textarea";
 import { Paths } from "@/consts/consts";
 import { PRIORITY_LABEL, STATUS_LABEL } from "@/consts/task";
 import { type TaskInput, taskSchema } from "@/schemas/taskSchema";
@@ -34,7 +34,7 @@ export const CreateTaskForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<TaskInput>({
-    resolver: zodResolver(taskSchema),
+    resolver: standardSchemaResolver(taskSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -71,16 +71,21 @@ export const CreateTaskForm = () => {
                 </FieldContent>
                 <FieldError errors={[errors.name]} />
               </Field>
-              <Field className="h-full">
+              <Field className="h-full flex flex-col">
                 <FieldLabel htmlFor="description" className="font-bold">
                   説明
                 </FieldLabel>
-                <FieldContent>
-                  <Textarea
-                    id="description"
-                    placeholder="説明を入力してください"
-                    className="field-sizing-fixed flex-1 h-full resize-none"
-                    {...register("description")}
+                <FieldContent className="flex flex-col flex-1">
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({ field }) => (
+                      <MarkdownEditor
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="説明を入力してください"
+                      />
+                    )}
                   />
                 </FieldContent>
               </Field>
